@@ -1,0 +1,12 @@
+<launch>
+    <!-- <node name="republish" 
+          type="republish" 
+          pkg="image_transport" 
+          output="screen" 
+          args="compressed in:=/apollo/sensor/camera/traffic/image_short/compressed raw out:=/apollo/sensor/camera/traffic/image_short/raw" /> -->
+    <node pkg="lgsvl_mm_perception"
+          type="run_2d_perception.py"
+          output="screen"
+          name="mm_2d_perception_node">
+    </node>
+</launch>

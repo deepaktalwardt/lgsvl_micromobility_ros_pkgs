@@ -1,0 +1,5 @@
+scooter
+hoverboard
+skateboard
+segway
+onewheel
