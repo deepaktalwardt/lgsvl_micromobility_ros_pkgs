@@ -1,7 +1,0 @@
-<launch>
-    <node pkg="lgsvl_data_collector"
-          type="test_node.py"
-          output="screen"
-          name="test_node">
-    </node>
-</launch>
