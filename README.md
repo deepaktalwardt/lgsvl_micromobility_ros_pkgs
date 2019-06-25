@@ -5,7 +5,9 @@ This repository contains 4 ROS packages used for various purposes in the project
 This package provides a ROS node for data collection from the LGSVL Simulator. This currently supports collecting camera images, depth sensor images, LiDAR point clouds and 2D, 3D ground truths at synchronized time intervals.
 
 ## lgsvl_mm_prediction
-This package uses a trained YOLOv3 model to run inferences on incoming camera images from the LGSVL simulator. It outputs the results in two separate ways (1) in a separate window with detection boxes, (2) directly into the simulator by publishing to Autoware specific topics.
+This package uses a trained YOLOv3 model to run inferences on incoming camera images from the LGSVL simulator. It outputs the results in two separate ways:
+1. In a separate window with detection boxes.
+2. Directly into the simulator by publishing to Autoware specific topics.
 
 ## lgsvl_msgs
 This package has been provided by [LGSVL](https://github.com/lgsvl) and is cloned from their original repository [here](https://github.com/lgsvl/lgsvl_msgs).
