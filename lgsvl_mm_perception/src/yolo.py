@@ -48,37 +48,10 @@ def freeze_session(self, session, keep_var_names=None, output_names=None, clear_
         return frozen_graph
 
 class YOLO(object):
-    # _defaults = {
-    #     "model_path": 'model_data/yolo.h5',
-    #     "anchors_path": 'model_data/yolo_anchors.txt',
-    #     "classes_path": 'model_data/coco_classes.txt',
-    #     "score" : 0.3,
-    #     "iou" : 0.45,
-    #     "model_image_size" : (416, 416),
-    #     "gpu_num" : 1,
-    # }
-
-    # Some examples to check
-    # ../large_dataset_1/main_camera/main-2019-04-30T21:52:08.393431.jpg
-    # ../large_dataset_1/main_camera/main-2019-04-30T21:52:07.501026.jpg
-    # ../large_dataset_1/main_camera/main-2019-04-30T21:53:53.659699.jpg
-    # ../large_dataset_1/main_camera/main-2019-04-30T21:55:04.114199.jpg
-    # ../large_dataset_1/main_camera/main-2019-04-30T21:55:30.765495.jpg
-
-    # _defaults = {
-    #     "model_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/ROS/cmpe297_ros1_ws/src/lgsvl_mm_perception/src/model_weights/2d-final-weights-keras-yolo3.h5',
-    #     "anchors_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/ROS/cmpe297_ros1_ws/src/lgsvl_mm_perception/src/model_data/lgsvl_anchors.txt',
-    #     "classes_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/ROS/cmpe297_ros1_ws/src/lgsvl_mm_perception/src/model_data/lgsvl_classes.txt',
-    #     "score" : 0.1,
-    #     "iou" : 0.1,
-    #     "model_image_size" : (640, 640),
-    #     "gpu_num" : 1,
-    # }
-
     _defaults = {
-        "model_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/repos/keras-yolo3/logs/large_dataset_1_training_2/000ep095-loss6.275-val_loss6.316.h5',
-        "anchors_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/ROS/cmpe297_ros1_ws/src/lgsvl_mm_perception/src/model_data/lgsvl_anchors.txt',
-        "classes_path": '/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/ROS/cmpe297_ros1_ws/src/lgsvl_mm_perception/src/model_data/lgsvl_classes.txt',
+        "model_path": 'PATH_TO_h5_WEIGHTS',
+        "anchors_path": '/model_data/lgsvl_anchors.txt',
+        "classes_path": '/model_data/lgsvl_classes.txt',
         "score" : 0.1,
         "iou" : 0.1,
         "model_image_size" : (640, 640),
@@ -205,9 +178,7 @@ class YOLO(object):
             [self.boxes, self.scores, self.classes],
             feed_dict={
                 self.yolo_model.input: image_data,
-                # self.input_image_shape: [image.size[1], image.size[0]],
                 self.input_image_shape: [image.size[1], image.size[0]]
-                # K.learning_phase(): 0
             })
 
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
@@ -252,9 +223,9 @@ class YOLO(object):
         print(end - start)
         return image
     
+    # This function returns detections in a dictionary which is used by the ROS node to publish bounding boxes to the simulator
     def get_detections(self, image):
-        # start = timer()
-
+        
         if self.model_image_size != (None, None):
             assert self.model_image_size[0]%32 == 0, 'Multiples of 32 required'
             assert self.model_image_size[1]%32 == 0, 'Multiples of 32 required'
@@ -264,8 +235,6 @@ class YOLO(object):
                               image.height - (image.height % 32))
             boxed_image = letterbox_image(image, new_image_size)
         image_data = np.array(boxed_image, dtype='float32')
-
-        # print(image_data.shape)
         image_data /= 255.
         image_data = np.expand_dims(image_data, 0)  # Add batch dimension.
 
@@ -273,12 +242,8 @@ class YOLO(object):
             [self.boxes, self.scores, self.classes],
             feed_dict={
                 self.yolo_model.input: image_data,
-                # self.input_image_shape: [image.size[1], image.size[0]],
                 self.input_image_shape: [image.size[1], image.size[0]]
-                # K.learning_phase(): 0
             })
-
-        # print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
         objects = []
 
