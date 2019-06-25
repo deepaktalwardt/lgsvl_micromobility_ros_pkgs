@@ -11,7 +11,7 @@ import message_filters
 from datetime import datetime
 
 # Save dataset here
-folder = "/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/datasets/large_dataset_2/"
+folder = "PATH_TO_SAVE_DATASET_AT"
 main_camera_subfolder = "main_camera"
 depth_camera_subfolder = "depth_camera"
 
@@ -21,6 +21,7 @@ gt_3d_subfolder = "gt_3d/"
 lidar_pcl_subfolder = "lidar_pcl"
 
 # Annotation Filenames
+# This node supports saving annotations in two different formats. See details of formats in DataCollector Class below.
 yolo3d_annotations = "gt_2d_yolo3d_annotations.csv"
 yolo2_annotations = "gt_2d_yolo2_annotations.csv"
 gt_3d_annotations = "gt_3d_annotations.csv"
@@ -159,7 +160,7 @@ class DataCollector:
 
     def save_lidar(self, lidar_pcl, msg_id):
         # Run this cmd in a separate terminal first!
-        # rosrun pcl_ros pointcloud_to_pcd input:=/sync_pcl2 _prefix:="/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/datasets/large_dataset_2/lidar_pcl/" _binary:=false
+        # rosrun pcl_ros pointcloud_to_pcd input:=/sync_pcl2 _prefix:="PATH_TO_SAVE_TO" _binary:=false
         self.pcl_pub.publish(lidar_pcl)        
 
 data_collector_node = DataCollector()
