@@ -11,7 +11,9 @@ from cv_bridge import CvBridge
 from PIL import Image
 
 class MM2DPerception:
-    #TODO: Implement publish to LGSVL simulator
+    
+    # Set apollo to True if the car selected inside the simulator is the Apollo prefab. Set to false if it is from Autoware.
+    # Set publish to True if you are using the Autoware prefab and want to visualize detected bounding boxes directly inside the simulator.
     def __init__(self, apollo=True, publish=False):
         self._cv_bridge = CvBridge()
         rospy.init_node('mm_2d_perception_node')
@@ -24,7 +26,9 @@ class MM2DPerception:
             self.sub_2d = rospy.Subscriber('/apollo/sensor/camera/traffic/image_short/compressed', CompressedImage, self.callback, queue_size=1)
         else:
             self.sub_2d = rospy.Subscriber('/simulator/camera_node/image/compressed', CompressedImage, self.callback, queue_size=1)
-        self.pub_2d = rospy.Publisher('/detection/vision_objects', DetectedObjectArray, queue_size=5)
+        
+        if self.publish:
+            self.pub_2d = rospy.Publisher('/detection/vision_objects', DetectedObjectArray, queue_size=5)
 
         try:
             rospy.spin()
@@ -48,8 +52,9 @@ class MM2DPerception:
 
         cv2.imshow("2D Perception", cv_image)
         cv2.waitKey(1)
+        # Uncomment the next two lines if you want to save the images as they are inferred
         # r_image.show()
-        # r_image.save('/home/deepaktalwardt/Dropbox/SJSU/Semesters/Spring 2019/CMPE 297/realtime_inference_results/2D/1/{}.jpg'.format(self.seq))
+        # r_image.save('PATH_TO_FOLDER/{}.jpg'.format(self.seq))
 
     def get_objects_and_publish(self, image):
         self.seq += 1
@@ -63,8 +68,6 @@ class MM2DPerception:
 
             det_obj.label = obj['label']
             det_obj.score = obj['score']
-            # det_obj.x = int(int(obj['x']) + int(obj['width']) / 2)
-            # det_obj.y = int(int(obj['y']) + int(obj['height']) / 2)
             det_obj.x = int(obj['x'])
             det_obj.y = int(obj['y'])
             det_obj.width = obj['width']
