@@ -26,13 +26,17 @@ Trained weights can be downloaded from [here](https://www.dropbox.com/s/a44ly3zd
 
 If you would like to train on your own collected dataset, follow the instructions on this [YOLOv3 repository](https://github.com/deepaktalwardt/keras-yolo3).
 
+### How to launch
+```
+roslaunch lgsvl_mm_perception mm_2d_perception_launcher.launch
+```
+
 ## lgsvl_msgs
 This package has been provided by [LGSVL](https://github.com/lgsvl) and is cloned from their original repository [here](https://github.com/lgsvl/lgsvl_msgs).
 
 ## autoware_msgs
 This package provides the messages that can be published to the LGSVL Simulator to display detections directly into the simulator camera window.
 
----
 ## Collaborators
 * **Deepak Talwar** - (https://github.com/deepaktalwardt)
 * **Seung Won Lee** - (https://github.com/swdev1202)
