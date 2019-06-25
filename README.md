@@ -9,6 +9,8 @@ This package uses a trained YOLOv3 model to run inferences on incoming camera im
 1. In a separate window with detection boxes.
 2. Directly into the simulator by publishing to Autoware specific topics.
 
+Trained weights can be downloaded from [here](https://www.dropbox.com/s/a44ly3zd6bzmssw/2d-final-weights-keras-yolo3.h5?dl=0). Add the path of this file to `yolo.py` file to load these weights while running inference.
+
 ## lgsvl_msgs
 This package has been provided by [LGSVL](https://github.com/lgsvl) and is cloned from their original repository [here](https://github.com/lgsvl/lgsvl_msgs).
 
