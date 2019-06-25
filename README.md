@@ -6,7 +6,7 @@ This package provides a ROS node for data collection from the LGSVL Simulator. T
 
 ### Annotation formats supported
 1. YOLO3D Style : `x, y, width, height, label`
-2. YOLOv3 Style : `x_min. y_min, x_max, y_max, label`
+2. YOLOv2/YOLOv3 Style : `x_min. y_min, x_max, y_max, label`
 
 ### How to launch
 ```
