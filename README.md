@@ -4,6 +4,19 @@ This repository contains 4 ROS packages used for various purposes in the project
 ## lgsvl_data_collector
 This package provides a ROS node for data collection from the LGSVL Simulator. This currently supports collecting camera images, depth sensor images, LiDAR point clouds and 2D, 3D ground truths at synchronized time intervals.
 
+### Annotation formats supported
+1. YOLO3D Style : `x, y, width, height, label`
+2. YOLOv2 Style : `x_min. y_min, x_max, y_max, label`
+
+### How to launch
+```
+roslaunch lgsvl_data_collector data_collector_launcher1.launch
+```
+To save LiDAR pointclouds, make sure to run `pointcloud_to_pcd` node in the `pcl_ros` package in a separate terminal using the following command
+```
+rosrun pcl_ros pointcloud_to_pcd input:=/sync_pcl2 _prefix:="PATH_TO_SAVE_TO" _binary:=false  
+```
+
 ## lgsvl_mm_prediction
 This package uses a trained YOLOv3 model to run inferences on incoming camera images from the LGSVL simulator. It outputs the results in two separate ways:
 1. In a separate window with detection boxes.
