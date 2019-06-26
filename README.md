@@ -37,7 +37,7 @@ This package has been provided by [LGSVL](https://github.com/lgsvl) and is clone
 ## autoware_msgs
 This package provides the messages that can be published to the LGSVL Simulator to display detections directly into the simulator camera window.
 
-## Collaborators
+## Contributors
 * **Deepak Talwar** - (https://github.com/deepaktalwardt)
 * **Seung Won Lee** - (https://github.com/swdev1202)
 ### This repository was originally developed for CMPE 297 - Autonomous Driving course at San Jose State University in Spring 2019.
